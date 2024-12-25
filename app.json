@@ -30,12 +30,12 @@
     "SUPPORT_LINK": {
       "description": "Link to your support group",
       "required": false,
-      "value": "https://t.me/BABY09_WORLD"
+      "value": "https://t.me/APNA_SYSTEM"
     },
     "UPDATES_LINK": {
       "description": "Link to your updates channel",
       "required": false,
-      "value": "https://t.me/BABY09_UPDATES"
+      "value": "https://t.me/moodifyAi_Erc"
     },
     "BOT_USERNAME": {
       "description": "Your bot's username",
