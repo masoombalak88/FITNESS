@@ -1,32 +1,27 @@
 from pyrogram import Client, filters
 from pyrogram.enums import ChatAction, ParseMode
-import requests
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
-API_ID = "YOUR_API_ID"  
-API_HASH = "YOUR_API_HASH"  
-BOT_TOKEN = "YOUR_BOT_TOKEN"  
+import requests
 
 
-API_KEY = "YOUR_API_KEY"  
-BASE_URL = "https://api.openai.com/v1/chat/completions"
+from config import API_ID, API_HASH, BOT_TOKEN, API_KEY, BASE_URL, SUPPORT_LINK, UPDATES_LINK, BOT_USERNAME
 
-app = Client("baby_ai_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
+app = Client("message_handler_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
 
 @app.on_message(filters.command("start"))
 async def start_command(bot, message):
     try:
-
+        
         buttons = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("➕ Add Me to Your Group", url="https://t.me/YOUR_BOT_USERNAME?startgroup=true"),
+                    InlineKeyboardButton("➕ Add Me to Your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
                 ],
                 [
-                    InlineKeyboardButton("👥 Support", url="https://t.me/BABY09_WORLD"),
-                    InlineKeyboardButton("📢 Updates", url="https://t.me/BABY09_UPDATES"),
+                    InlineKeyboardButton("👥 Support", url=SUPPORT_LINK),
+                    InlineKeyboardButton("📢 Updates", url=UPDATES_LINK),
                 ],
             ]
         )
@@ -36,7 +31,7 @@ async def start_command(bot, message):
             "👋 **Welcome to AI Bot!**\n\n"
             "I can answer your queries and assist you. Just type your message to get started.\n\n"
             "Use me wisely and have fun!\n\n"
-            "🔹 Maintained by [Baby-Music](https://t.me/BABY09_WORLD)",
+            f"🔹 Maintained by [Baby-Music]({SUPPORT_LINK})",
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN
         )
@@ -45,18 +40,15 @@ async def start_command(bot, message):
         await message.reply_text("❍ ᴇʀʀᴏʀ: Unable to process the command.")
 
 
-
-
 @app.on_message(filters.text)
 async def handle_messages(bot, message):
     try:
-        
         unwanted_symbols = ["/", ":", ";", "*", "?"]
 
         
         if message.text[0] in unwanted_symbols:
-            print(f"Ignored message: {message.text}")  
-            return  
+            print(f"Ignored message: {message.text}")
+            return
 
         await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
 
@@ -84,7 +76,7 @@ async def handle_messages(bot, message):
             if "choices" in response_data and len(response_data["choices"]) > 0:
                 result = response_data["choices"][0]["message"]["content"]
                 await message.reply_text(
-                    f"{result} \n\nＡɴsᴡᴇʀᴇᴅ ʙʏ➛[˹ ʙᴀʙʏ-ᴍᴜsɪᴄ ™˼𓅂](https://t.me/BABY09_WORLD)",
+                    f"{result} \n\nＡɴsᴡᴇʀᴇᴅ ʙʏ➛[Baby-Music]({SUPPORT_LINK})",
                     parse_mode=ParseMode.MARKDOWN
                 )
             else:
