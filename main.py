@@ -20,7 +20,7 @@ async def start_command(bot, message):
                     InlineKeyboardButton("➕ Add Me to Your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
                 ],
                 [
-                    InlineKeyboardButton("✰ ❍͢͠𝐰𝐧𝐞𝐫 ✰", url=f"http://t.me/APNA_SYSTEM"),
+                    InlineKeyboardButton("✰ ❍͢͠𝐰𝐧𝐞𝐫 ✰", url=f"http://t.me/zashbit"),
                     InlineKeyboardButton("📢 Updates", url=UPDATES_LINK),
                 ],
             ]
