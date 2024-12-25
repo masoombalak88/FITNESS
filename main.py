@@ -20,18 +20,16 @@ async def start_command(bot, message):
                     InlineKeyboardButton("➕ Add Me to Your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
                 ],
                 [
-                    InlineKeyboardButton("👥 Support", url=SUPPORT_LINK),
+                    InlineKeyboardButton("✰ ❍͢͠𝐰𝐧𝐞𝐫 ✰", url=f"http://t.me/APNA_SYSTEM"),
                     InlineKeyboardButton("📢 Updates", url=UPDATES_LINK),
                 ],
             ]
         )
 
         
-        await message.reply_text(
-            "👋 **Welcome to AI Bot!**\n\n"
-            "I can answer your queries and assist you. Just type your message to get started.\n\n"
-            "Use me wisely and have fun!\n\n"
-            f"🔹 Maintained by [Baby-Music]({SUPPORT_LINK})",
+        await message.reply_photo(
+                            photo = f"https://files.catbox.moe/6bym0w.jpg",
+                            caption = f"𝐇𝐞𝐲,\n\𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐇𝐄𝐀𝐋 𝐀𝐈 𝐁𝐎𝐓\n\nᴛᴏ 𝐓𝐡𝐢𝐬 𝐢𝐬 𝐲𝐨𝐮𝐫 𝐚𝐢 𝐝𝐨𝐜𝐭𝐨𝐫 𝐰𝐡𝐢𝐜𝐡 𝐜𝐚𝐧 𝐩𝐫𝐞𝐝𝐢𝐜𝐭 𝐲𝐨𝐮𝐫 𝐝𝐢𝐬𝐞𝐚𝐬𝐞 𝐭𝐡𝐫𝐨𝐮𝐠𝐡 𝐲𝐨𝐮𝐫 𝐬𝐲𝐦𝐩𝐭𝐨𝐦𝐬 𝐚𝐧𝐝 𝐠𝐢𝐯𝐞𝐬 𝐜𝐮𝐫𝐞 𝐫𝐞𝐦𝐞𝐝𝐢𝐞𝐬!\n\n𝐏𝐥𝐞𝐚𝐬𝐞 𝐭𝐞𝐥𝐥 𝐦𝐞 𝐚𝐛𝐨𝐮𝐭 𝐲𝐨𝐮𝐫 𝐝𝐢𝐬𝐞𝐚𝐬𝐞 𝐨𝐫 𝐬𝐲𝐦𝐩𝐭𝐨𝐦𝐬 𝐬𝐨 𝐈 𝐜𝐚𝐧 𝐡𝐞𝐥𝐩 𝐲𝐨𝐮.",
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN
         )
@@ -76,7 +74,7 @@ async def handle_messages(bot, message):
             if "choices" in response_data and len(response_data["choices"]) > 0:
                 result = response_data["choices"][0]["message"]["content"]
                 await message.reply_text(
-                    f"{result} \n\nＡɴsᴡᴇʀᴇᴅ ʙʏ➛[Baby-Music]({SUPPORT_LINK})",
+                    f"{result}",
                     parse_mode=ParseMode.MARKDOWN
                 )
             else:
