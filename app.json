@@ -1,9 +1,9 @@
 {
   "name": "AI Telegram Bot",
   "description": "A Telegram bot powered by OpenAI to assist with queries.",
-  "repository": "https://github.com/OWNERSYSTUMM/Vikky",
+  "repository": "https://github.com/masoombalak88/SYSTEM_AI",
   "stack": "container",
-  "logo": "https://files.catbox.moe/m7qmnv.jpg",
+  "logo": "https://files.catbox.moe/u0ujif.jpg",
   "keywords": ["telegram", "bot", "openai", "ai"],
   "env": {
     "API_ID": {
