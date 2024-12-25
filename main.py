@@ -21,7 +21,7 @@ async def start_command(bot, message):
                 ],
                 [
                     InlineKeyboardButton("✰ ❍͢͠𝐰𝐧𝐞𝐫 ✰", url=f"http://t.me/zashbit"),
-                    InlineKeyboardButton("📢 Updates", url=UPDATES_LINK),
+                    InlineKeyboardButton("📢 𝖴𝖯𝖣𝖠𝖳𝖤𝖲", url=UPDATES_LINK),
                 ],
             ]
         )
