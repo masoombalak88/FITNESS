@@ -15,7 +15,7 @@ async def start_command(bot, message):
     try:
         await message.reply_photo(
                             photo = f"https://files.catbox.moe/6bym0w.jpg",
-                            caption = f"Hey,\n\nWelcome to HEAL AI BOT\n\n This is your ai doctor which can predict your disease through your symptoms and gives cure remedies!\n\nPlease tell me about your disease or symptoms so I can help you.",
+                            caption = f"Hey,\n\nWelcome to Healix AI Bot\n\n This is your ai doctor which can predict your disease through your symptoms and gives cure remedies!\n\nPlease tell me about your disease or symptoms so I can help you.",
             
             parse_mode=ParseMode.MARKDOWN
         )
