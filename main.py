@@ -16,7 +16,7 @@ async def start_command(bot, message):
         await message.reply_photo(
                             photo = f"https://files.catbox.moe/6bym0w.jpg",
                             caption = f"𝐇𝐞𝐲,\n\n𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐇𝐄𝐀𝐋 𝐀𝐈 𝐁𝐎𝐓\n\n 𝐓𝐡𝐢𝐬 𝐢𝐬 𝐲𝐨𝐮𝐫 𝐚𝐢 𝐝𝐨𝐜𝐭𝐨𝐫 𝐰𝐡𝐢𝐜𝐡 𝐜𝐚𝐧 𝐩𝐫𝐞𝐝𝐢𝐜𝐭 𝐲𝐨𝐮𝐫 𝐝𝐢𝐬𝐞𝐚𝐬𝐞 𝐭𝐡𝐫𝐨𝐮𝐠𝐡 𝐲𝐨𝐮𝐫 𝐬𝐲𝐦𝐩𝐭𝐨𝐦𝐬 𝐚𝐧𝐝 𝐠𝐢𝐯𝐞𝐬 𝐜𝐮𝐫𝐞 𝐫𝐞𝐦𝐞𝐝𝐢𝐞𝐬!\n\n𝐏𝐥𝐞𝐚𝐬𝐞 𝐭𝐞𝐥𝐥 𝐦𝐞 𝐚𝐛𝐨𝐮𝐭 𝐲𝐨𝐮𝐫 𝐝𝐢𝐬𝐞𝐚𝐬𝐞 𝐨𝐫 𝐬𝐲𝐦𝐩𝐭𝐨𝐦𝐬 𝐬𝐨 𝐈 𝐜𝐚𝐧 𝐡𝐞𝐥𝐩 𝐲𝐨𝐮.",
-            reply_markup=buttons,
+            
             parse_mode=ParseMode.MARKDOWN
         )
     except Exception as e:
