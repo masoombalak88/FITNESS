@@ -4,7 +4,7 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-<h1 align="center"><b>˹ ʙᴀʙʏ-ᴍᴜsɪᴄ ™˼ ʙᴏᴛ 𓅂</b></h1>
+<h1 align="center"><b>˹ ʙᴀʙʏ-ᴍᴜsɪᴄ ™˼ ᴀɪ ʙᴏᴛ 𓅂</b></h1>
 <p align="center"><a href="Https://t.me/UTTAM470"><img src="https://files.catbox.moe/gjudsy.jpg" width="600"></a></p>
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
