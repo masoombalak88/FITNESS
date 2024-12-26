@@ -53,7 +53,7 @@ async def fetch_med_info(client, message):
 
 
 # Handler for private message queries (DM/PM), ignoring commands
-@dev.on_message(filters.private & ~filters.command)
+@app.on_message(filters.private & ~filters.command)
 async def handle_private_query(client, message):
     query = message.text.strip()  # Use the message text as the query
     if not query:
