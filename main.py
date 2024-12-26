@@ -2,6 +2,8 @@ from pyrogram import Client, filters
 from pyrogram.enums import ChatAction, ParseMode
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import requests
+from pyrogram import Client, filters
+from pyrogram.enums import ChatAction
 
 
 from config import API_ID, API_HASH, BOT_TOKEN, API_KEY, BASE_URL, SUPPORT_LINK, UPDATES_LINK, BOT_USERNAME
@@ -23,55 +25,31 @@ async def start_command(bot, message):
         print(f"Error in /start command: {e}")
         await message.reply_text("❍ ᴇʀʀᴏʀ: Unable to process the command.")
 
+# Handler for the /med command
+@app.on_message(filters.command("doctor") & filters.group)
+async def fetch_med_info(client, message):
+    query = " ".join(message.command[1:])  # Extract the query after the command
+    if not query:
+        await message.reply_text("Please provide a medical query to ask.")
+        return
 
-@app.on_message(filters.text)
-async def handle_messages(bot, message):
+    # Send typing action to indicate bot is working
+    await client.send_chat_action(chat_id=message.chat.id, action=ChatAction.TYPING)
+
+    # Use the API to get medical data
+    api_url = f"https://medical.codesearch.workers.dev/?question={query}"
     try:
-        unwanted_symbols = ["/", ":", ";", "*", "?"]
-
-        
-        if message.text[0] in unwanted_symbols:
-            print(f"Ignored message: {message.text}")
-            return
-
-        await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
-
-        query = message.text
-        print(f"Processing query: {query}")
-
-        headers = {
-            "Authorization": f"Bearer {API_KEY}",
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-            "messages": [
-                {
-                    "role": "user",
-                    "content": query
-                }
-            ]
-        }
-
-        response = requests.post(BASE_URL, json=payload, headers=headers)
-
-        if response.status_code == 200 and response.text.strip():
-            response_data = response.json()
-            if "choices" in response_data and len(response_data["choices"]) > 0:
-                result = response_data["choices"][0]["message"]["content"]
-                await message.reply_text(
-                    f"{result}",
-                    parse_mode=ParseMode.MARKDOWN
-                )
-            else:
-                await message.reply_text("❍ ᴇʀʀᴏʀ: No response from API.")
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            data = response.json()
+            reply = data.get("data", "Sorry, I couldn't fetch the data.")
         else:
-            await message.reply_text(f"❍ ᴇʀʀᴏʀ: API request failed. Status code: {response.status_code}")
-
+            reply = "Failed to fetch data from the API."
     except Exception as e:
-        print(f"Error: {e}")
-        await message.reply_text(f"❍ ᴇʀʀᴏʀ: {e}")
+        reply = f"An error occurred: {e}"
 
+    # Reply to the user
+    await message.reply_text(reply)
 
 
 if __name__ == "__main__":
