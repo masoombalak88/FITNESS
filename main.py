@@ -2,30 +2,27 @@ from pyrogram import Client, filters
 from pyrogram.enums import ChatAction, ParseMode
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import requests
-from pyrogram import Client, filters
-from pyrogram.enums import ChatAction
-
-
-from config import API_ID, API_HASH, BOT_TOKEN, API_KEY, BASE_URL, SUPPORT_LINK, UPDATES_LINK, BOT_USERNAME
-
+from config import API_ID, API_HASH, BOT_TOKEN
 
 app = Client("message_handler_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
-
 
 @app.on_message(filters.command("start"))
 async def start_command(bot, message):
     try:
         await message.reply_photo(
-                            photo = f"https://files.catbox.moe/6bym0w.jpg",
-                            caption = f"Hey,\n\nWelcome to Healix AI Bot\n\n This is your ai doctor which can predict your disease through your symptoms and gives cure remedies!\n\nPlease tell me about your disease or symptoms so I can help you.",
-            
+            photo="https://files.catbox.moe/6bym0w.jpg",
+            caption=(
+                "Hey,\n\nWelcome to Healix AI Bot\n\n"
+                "This is your AI doctor which can predict your disease through your symptoms and provide cure remedies!\n\n"
+                "Please tell me about your disease or symptoms so I can help you."
+            ),
             parse_mode=ParseMode.MARKDOWN
         )
     except Exception as e:
         print(f"Error in /start command: {e}")
         await message.reply_text("❍ ᴇʀʀᴏʀ: Unable to process the command.")
 
-# Handler for the /med command
+# Handler for the /doctor command
 @app.on_message(filters.command("doctor") & filters.group)
 async def fetch_med_info(client, message):
     query = " ".join(message.command[1:])  # Extract the query after the command
@@ -51,9 +48,8 @@ async def fetch_med_info(client, message):
     # Reply to the user
     await message.reply_text(reply)
 
-
 # Handler for private message queries (DM/PM), ignoring commands
-@app.on_message(filters.private & ~filters.command)
+@app.on_message(filters.private & ~filters.command(["start", "doctor"]))
 async def handle_private_query(client, message):
     query = message.text.strip()  # Use the message text as the query
     if not query:
