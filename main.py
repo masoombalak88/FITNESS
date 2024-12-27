@@ -10,7 +10,7 @@ app = Client("message_handler_bot", api_id=API_ID, api_hash=API_HASH, bot_token=
 async def start_command(bot, message):
     try:
         await message.reply_video(
-            photo="https://files.catbox.moe/qdtfhq.mp4",
+            video="https://files.catbox.moe/qdtfhq.mp4",
             caption=(
                 "🌟 Welcome to Healix AI – Your Virtual Health Companion! 🌟\n\n👨‍⚕️ What Can I Do?\n"
                 "🔹 Analyze your symptoms\n"
