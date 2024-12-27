@@ -9,12 +9,14 @@ app = Client("message_handler_bot", api_id=API_ID, api_hash=API_HASH, bot_token=
 @app.on_message(filters.command("start"))
 async def start_command(bot, message):
     try:
-        await message.reply_photo(
-            photo="https://files.catbox.moe/6bym0w.jpg",
+        await message.reply_video(
+            photo="https://files.catbox.moe/qdtfhq.mp4",
             caption=(
-                "Hey,\n\nWelcome to Healix AI Bot\n\n"
-                "This is your AI doctor which can predict your disease through your symptoms and provide cure remedies!\n\n"
-                "Please tell me about your disease or symptoms so I can help you."
+                "🌟 Welcome to Healix AI – Your Virtual Health Companion! 🌟\n\n👨‍⚕️ What Can I Do?\n"
+                "🔹 Analyze your symptoms\n"
+                "🔹 Predict potential diseases\n🔹 Provide remedies, precautions, and wellness tips\n\n🔹 Provide remedies, precautions, and wellness tips\n\n"
+                "✨ How Does It Work?\n✅ Simple & Quick! Just type in your symptoms, and I'll provide accurate, AI-powered health insights instantly!\n\n"
+                "Let’s make your health journey smarter, faster, and easier! 💖\n\n🌐 Stay Connected with Us!\n🌍 Website | 💬 Telegram | 🐦 Twitter."
             ),
             parse_mode=ParseMode.MARKDOWN
         )
