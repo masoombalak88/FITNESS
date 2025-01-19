@@ -13,6 +13,9 @@ BOT_TOKEN = '7691684260:AAG44rFNbDtarVZCPUuQQk3K4BaOCP7RXnU'  # Replace with you
 # Initialize the bot client
 app = Client("message_handler_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
+# Dictionary to store replies temporarily based on message IDs
+message_responses = {}
+
 # Function to convert text to speech and send it as an audio file
 def text_to_speech(text, chat_id):
     tts = gTTS(text=text, lang='en')
@@ -65,11 +68,14 @@ async def fetch_med_info(client, message):
     except Exception as e:
         reply = f"An error occurred: {e}"
 
+    # Store the response text for later use
+    message_responses[message.id] = reply
+
     # Add TTS inline button to reply
     await message.reply_text(
         reply,
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("Convert to TTS", callback_data=f'tts_{message.id}_{reply}')]
+            [InlineKeyboardButton("Convert to TTS", callback_data=f'tts_{message.id}')]
         ])
     )
 
@@ -96,11 +102,14 @@ async def handle_private_query(client, message):
     except Exception as e:
         reply = f"An error occurred: {e}"
 
+    # Store the response text for later use
+    message_responses[message.id] = reply
+
     # Add TTS inline button to reply
     await message.reply_text(
         reply,
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("Convert to TTS", callback_data=f'tts_{message.id}_{reply}')]
+            [InlineKeyboardButton("Convert to TTS", callback_data=f'tts_{message.id}')]
         ])
     )
 
@@ -117,22 +126,20 @@ def start(client, message):
 # Handler for button click (Convert to TTS)
 @app.on_callback_query(filters.regex('^tts_'))
 def on_button_click(client, callback_query):
-    # Extract the message text from callback data
-    callback_data = callback_query.data.split('_')
-    message_id = int(callback_data[1])
-    
-    if len(callback_data) > 2:
-        text = callback_data[2]
-    else:
-        # If the query text is not directly available in callback, retrieve it
-        message = app.get_messages(callback_query.message.chat.id, message_id)
-        text = message.text
-    
+    # Extract the message ID from callback data
+    message_id = int(callback_query.data.split('_')[1])
+
+    # Retrieve the response text from stored data
+    text = message_responses.get(message_id, "No data found.")
+
     # Send the TTS version of the message
     text_to_speech(text, callback_query.message.chat.id)
 
     # Acknowledge the button click
     callback_query.answer()
+
+    # Optionally remove the entry from the dictionary after processing
+    del message_responses[message_id]
 
 # Run the bot
 if __name__ == "__main__":
