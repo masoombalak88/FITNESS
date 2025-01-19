@@ -6,6 +6,11 @@ from gtts import gTTS
 import os
 from config import API_ID, API_HASH, BOT_TOKEN
 
+
+API_ID = '12380656'  # Replace with your API ID
+API_HASH = 'd927c13beaaf5110f25c505b7c071273'  # Replace with your API Hash
+BOT_TOKEN = '7691684260:AAG44rFNbDtarVZCPUuQQk3K4BaOCP7RXnU'  # Replace with your Bot Token
+
 # Initialize the bot client
 app = Client("message_handler_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
