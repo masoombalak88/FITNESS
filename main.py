@@ -6,7 +6,6 @@ from gtts import gTTS
 import os
 from config import API_ID, API_HASH, BOT_TOKEN
 
-
 API_ID = '12380656'  # Replace with your API ID
 API_HASH = 'd927c13beaaf5110f25c505b7c071273'  # Replace with your API Hash
 BOT_TOKEN = '7691684260:AAG44rFNbDtarVZCPUuQQk3K4BaOCP7RXnU'  # Replace with your Bot Token
@@ -23,7 +22,6 @@ def text_to_speech(text, chat_id):
     # Send the audio file to the user
     app.send_audio(chat_id=chat_id, audio=file_path)
     os.remove(file_path)  # Clean up the temporary audio file
-
 
 # Handler for the /start command
 @app.on_message(filters.command("start"))
@@ -43,7 +41,6 @@ async def start_command(bot, message):
     except Exception as e:
         print(f"Error in /start command: {e}")
         await message.reply_text("❍ ᴇʀʀᴏʀ: Unable to process the command.")
-
 
 # Handler for the /doctor command (group)
 @app.on_message(filters.command("doctor") & filters.group)
@@ -68,9 +65,13 @@ async def fetch_med_info(client, message):
     except Exception as e:
         reply = f"An error occurred: {e}"
 
-    # Reply to the user
-    await message.reply_text(reply)
-
+    # Add TTS inline button to reply
+    await message.reply_text(
+        reply,
+        reply_markup=InlineKeyboardMarkup([
+            [InlineKeyboardButton("Convert to TTS", callback_data=f'tts_{message.id}_{reply}')]
+        ])
+    )
 
 # Handler for private message queries (DM/PM), ignoring commands
 @app.on_message(filters.private & ~filters.command(["start", "doctor"]))
@@ -95,9 +96,13 @@ async def handle_private_query(client, message):
     except Exception as e:
         reply = f"An error occurred: {e}"
 
-    # Reply to the user
-    await message.reply_text(reply)
-
+    # Add TTS inline button to reply
+    await message.reply_text(
+        reply,
+        reply_markup=InlineKeyboardMarkup([
+            [InlineKeyboardButton("Convert to TTS", callback_data=f'tts_{message.id}_{reply}')]
+        ])
+    )
 
 # Handler for the '/mstart' command (Text-to-Speech Bot)
 @app.on_message(filters.command('mstart'))
@@ -109,19 +114,25 @@ def start(client, message):
         ])
     )
 
-
 # Handler for button click (Convert to TTS)
 @app.on_callback_query(filters.regex('^tts_'))
 def on_button_click(client, callback_query):
-    text = callback_query.message.text
-    chat_id = callback_query.message.chat.id
+    # Extract the message text from callback data
+    callback_data = callback_query.data.split('_')
+    message_id = int(callback_data[1])
+    
+    if len(callback_data) > 2:
+        text = callback_data[2]
+    else:
+        # If the query text is not directly available in callback, retrieve it
+        message = app.get_messages(callback_query.message.chat.id, message_id)
+        text = message.text
     
     # Send the TTS version of the message
-    text_to_speech(text, chat_id)
+    text_to_speech(text, callback_query.message.chat.id)
 
     # Acknowledge the button click
     callback_query.answer()
-
 
 # Run the bot
 if __name__ == "__main__":
