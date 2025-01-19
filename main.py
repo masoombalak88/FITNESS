@@ -3,7 +3,7 @@ from pyrogram.enums import ChatAction, ParseMode
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 import requests
 from gtts import gTTS
-import os
+import io  # To handle in-memory file operations
 from config import API_ID, API_HASH, BOT_TOKEN
 
 API_ID = '12380656'  # Replace with your API ID
@@ -16,15 +16,20 @@ app = Client("message_handler_bot", api_id=API_ID, api_hash=API_HASH, bot_token=
 # Dictionary to store replies temporarily based on message IDs
 message_responses = {}
 
-# Function to convert text to speech and send it as an audio file
+# Function to convert text to speech and send it as an audio file (Optimized)
 def text_to_speech(text, chat_id):
+    # Use gTTS to generate speech
     tts = gTTS(text=text, lang='en')
-    file_path = 'audio.mp3'
-    tts.save(file_path)
     
+    # Save the speech to an in-memory file (BytesIO)
+    audio_file = io.BytesIO()
+    tts.save(audio_file)
+    audio_file.seek(0)  # Reset the pointer to the start of the file
+
     # Send the audio file to the user
-    app.send_audio(chat_id=chat_id, audio=file_path)
-    os.remove(file_path)  # Clean up the temporary audio file
+    app.send_audio(chat_id=chat_id, audio=audio_file)
+    
+    # No need to delete, as it's an in-memory file
 
 # Handler for the /start command
 @app.on_message(filters.command("start"))
@@ -113,19 +118,12 @@ async def handle_private_query(client, message):
         ])
     )
 
-# Handler for the '/mstart' command (Text-to-Speech Bot)
-@app.on_message(filters.command('mstart'))
-def start(client, message):
-    message.reply_text(
-        "Hello! I am your TTS bot. Send me a message, and I will reply with TTS!",
-        reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("Change TO TTS", callback_data=f'tts_{message.id}')]
-        ])
-    )
-
 # Handler for button click (Convert to TTS)
 @app.on_callback_query(filters.regex('^tts_'))
 def on_button_click(client, callback_query):
+    # Acknowledge the callback query immediately
+    callback_query.answer()
+
     # Extract the message ID from callback data
     message_id = int(callback_query.data.split('_')[1])
 
@@ -134,9 +132,6 @@ def on_button_click(client, callback_query):
 
     # Send the TTS version of the message
     text_to_speech(text, callback_query.message.chat.id)
-
-    # Acknowledge the button click
-    callback_query.answer()
 
     # Optionally remove the entry from the dictionary after processing
     del message_responses[message_id]
