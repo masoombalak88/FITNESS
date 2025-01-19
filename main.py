@@ -113,16 +113,6 @@ async def handle_private_query(client, message):
         ])
     )
 
-# Handler for the '/mstart' command (Text-to-Speech Bot)
-@app.on_message(filters.command('mstart'))
-def start(client, message):
-    message.reply_text(
-        "Hello! I am your TTS bot. Send me a message, and I will reply with TTS!",
-        reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("Change TO TTS", callback_data=f'tts_{message.id}')]
-        ])
-    )
-
 # Handler for button click (Convert to TTS)
 @app.on_callback_query(filters.regex('^tts_'))
 def on_button_click(client, callback_query):
