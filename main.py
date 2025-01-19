@@ -27,7 +27,7 @@ def text_to_speech(text, chat_id):
     audio_file.seek(0)  # Reset the pointer to the start of the file
 
     # Send the audio file to the user
-    app.send_audio(chat_id=chat_id, audio=audio_file, mime_type="audio/mpeg")
+    app.send_audio(chat_id=chat_id, audio=audio_file)
     
     # No need to delete, as it's an in-memory file
 
@@ -115,6 +115,16 @@ async def handle_private_query(client, message):
         reply,
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton("Convert to TTS", callback_data=f'tts_{message.id}')]
+        ])
+    )
+
+# Handler for the '/mstart' command (Text-to-Speech Bot)
+@app.on_message(filters.command('mstart'))
+def start(client, message):
+    message.reply_text(
+        "Hello! I am your TTS bot. Send me a message, and I will reply with TTS!",
+        reply_markup=InlineKeyboardMarkup([
+            [InlineKeyboardButton("Change TO TTS", callback_data=f'tts_{message.id}')]
         ])
     )
 
