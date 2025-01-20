@@ -5,43 +5,7 @@
   "stack": "container",
   "logo": "https://files.catbox.moe/u0ujif.jpg",
   "keywords": ["telegram", "bot", "openai", "ai"],
-  "env": {
-    "API_ID": {
-      "description": "Your Telegram API ID",
-      "required": true
-    },
-    "API_HASH": {
-      "description": "Your Telegram API Hash",
-      "required": true
-    },
-    "BOT_TOKEN": {
-      "description": "Your Telegram bot token",
-      "required": true
-    },
-    "API_KEY": {
-      "description": "Your OpenAI API key",
-      "required": true
-    },
-    "BASE_URL": {
-      "description": "Your OpenAI API Base URL",
-      "required": true,
-      "value": "https://api.together.xyz/v1/chat/completions"
-    },
-    "SUPPORT_LINK": {
-      "description": "Link to your support group",
-      "required": false,
-      "value": "https://t.me/APNA_SYSTEM"
-    },
-    "UPDATES_LINK": {
-      "description": "Link to your updates channel",
-      "required": false,
-      "value": "https://t.me/moodifyAi_Erc"
-    },
-    "BOT_USERNAME": {
-      "description": "Your bot's username",
-      "required": true
-    }
-  },
+  "env": {},
   "buildpacks": [
     {
       "url": "heroku/python"
