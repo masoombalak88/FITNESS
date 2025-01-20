@@ -8,7 +8,7 @@ from config import API_ID, API_HASH, BOT_TOKEN
 
 API_ID = '12380656'  # Replace with your API ID
 API_HASH = 'd927c13beaaf5110f25c505b7c071273'  # Replace with your API Hash
-BOT_TOKEN = '7882393332:AAGb4-Y6JGWeTb1h58-jf8jtXzi8nowPkJ0'  # Replace with your Bot Token
+BOT_TOKEN = '7757056868:AAF0vnPl-xaX8JM8IQ7qO2-Wn0JfuxSCsqY'  # Replace with your Bot Token
 
 # Initialize the bot client
 app = Client("message_handler_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
@@ -30,8 +30,8 @@ def text_to_speech(text, chat_id):
 @app.on_message(filters.command("start"))
 async def start_command(bot, message):
     try:
-        await message.reply_video(
-            video="https://files.catbox.moe/qdtfhq.mp4",
+        await message.reply_photo(
+            photo="https://files.catbox.moe/ske2d0.jpg",
             caption=(
                 "🌟 🌟 Welcome to Healix AI Fitness Bot – Your Ultimate Fitness Companion! 🌟\n\n👨‍⚕️ What Can I Help With?\n"
                 "🔹 Guide you through beginner fitness steps.\n"
