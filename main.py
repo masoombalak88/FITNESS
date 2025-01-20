@@ -33,11 +33,12 @@ async def start_command(bot, message):
         await message.reply_video(
             video="https://files.catbox.moe/qdtfhq.mp4",
             caption=(
-                "🌟 Welcome to Healix AI – Your Virtual Health Companion! 🌟\n\n👨‍⚕️ What Can I Do?\n"
-                "🔹 Analyze your symptoms\n"
-                "🔹 Predict potential diseases\n🔹 Provide remedies, precautions, and wellness tips\n\n"
-                "✨ How Does It Work?\n✅ Simple & Quick! Just type in your symptoms, and I'll provide accurate, AI-powered health insights instantly!\n\n"
-                "Let’s make your health journey smarter, faster, and easier! 💖\n\n🌐 Stay Connected with Us!\n[🌍 Website](https://healixai.tech) | [💬 Telegram](https://t.me/HealixAi) | [🐦 Twitter](https://x.com/Healix__AI)."
+                "🌟 🌟 Welcome to Healix AI Fitness Bot – Your Ultimate Fitness Companion! 🌟\n\n👨‍⚕️ What Can I Help With?\n"
+                "🔹 Guide you through beginner fitness steps.\n"
+                "🔹 Answer all your fitness-related questions.\n🔹 Create personalized daily fitness goals and diet plans.\n\n"
+                "✨ How Does It Work?\n✅ It’s simple! Share your fitness needs, and I’ll deliver AI-driven insights tailored just for you—instantly and effortlessly.\n\n"
+                "💪 Let’s elevate your fitness journey together—smarter, faster, and better! 💖"
+
             ),
             parse_mode=ParseMode.MARKDOWN
         )
@@ -57,7 +58,7 @@ async def fetch_med_info(client, message):
     await client.send_chat_action(chat_id=message.chat.id, action=ChatAction.TYPING)
 
     # Use the API to get medical data
-    api_url = f"https://medical.codesearch.workers.dev/?chat={query}"
+    api_url = f"https://fitness.codesearch.workers.dev/?chat={query}"
     try:
         response = requests.get(api_url)
         if response.status_code == 200:
@@ -91,7 +92,7 @@ async def handle_private_query(client, message):
     await client.send_chat_action(chat_id=message.chat.id, action=ChatAction.TYPING)
 
     # Use the API to get medical data
-    api_url = f"https://medical.codesearch.workers.dev/?chat={query}"
+    api_url = f"https://fitness.codesearch.workers.dev/?chat={query}"
     try:
         response = requests.get(api_url)
         if response.status_code == 200:
